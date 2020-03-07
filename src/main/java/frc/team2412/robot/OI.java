@@ -198,8 +198,7 @@ public class OI {
 		backIntakeUpDown.whenReleased(new IntakeBackDownCommand(robotContainer.m_intakeUpDownSubsystem));
 		backIntakeUpDown.whenPressed(new IntakeBackUpCommand(robotContainer.m_intakeUpDownSubsystem));
 
-		if (!RobotMap.INDEX_CONNECTED) { // Protects from null pointers lower, should not effect because intake requires
-											// index mech.
+		if (!RobotMap.INDEX_CONNECTED) { // Protects from null pointers lower, should not effect because intake requires index mech.
 			return;
 		}
 
@@ -218,6 +217,7 @@ public class OI {
 				.andThen(new InstantCommand(() -> robotContainer.m_indexerMotorSubsystem.setBackMotor(1))));
 		intakeBackOut.whenReleased(new IntakeBackOffCommand(robotContainer.m_intakeMotorOnOffSubsystem)
 				.andThen(new InstantCommand(() -> robotContainer.m_indexerMotorSubsystem.setBackMotor(0))));
+		
 		intakeFrontIn.whileHeld(
 				new IntakeFrontInCommand(robotContainer.m_intakeMotorOnOffSubsystem).andThen(new InstantCommand(() -> {
 					robotContainer.m_indexerMotorSubsystem.setMidMotor(-0.2);
@@ -230,6 +230,7 @@ public class OI {
 					else
 						robotContainer.m_indexerMotorSubsystem.setBackMotor(0);
 				})));
+		
 		intakeBackIn.whileHeld(
 				new IntakeBackInCommand(robotContainer.m_intakeMotorOnOffSubsystem).andThen(new InstantCommand(() -> {
 					robotContainer.m_indexerMotorSubsystem.setMidMotor(-0.2);
@@ -249,7 +250,6 @@ public class OI {
 		if (!RobotMap.CLIMB_CONNECTED) {
 			return;
 		}
-
 		climbModeButton.whileHeld(new ClimbJoystickCommand(codriverManualStick, robotContainer.m_climbMotorSubsystem));
 		climbModeButton.whenPressed(new ClimbDeployRailsCommand(robotContainer.m_climbLiftSubsystem));
 		climbModeButton.whenReleased(new ClimbRetractRailsCommand(robotContainer.m_climbLiftSubsystem));
@@ -259,9 +259,8 @@ public class OI {
 		if (!RobotMap.LIFT_CONNECTED) {
 			return;
 		}
-
-		liftButton
-				.whenPressed(new LiftUpCommand(robotContainer.m_liftSubsystem, robotContainer.m_indexerMotorSubsystem));
+		liftButton.whenPressed(
+				new LiftUpCommand(robotContainer.m_liftSubsystem, robotContainer.m_indexerMotorSubsystem));
 		liftButton.whenReleased(
 				new LiftDownCommand(robotContainer.m_liftSubsystem, robotContainer.m_indexerMotorSubsystem));
 	}
