@@ -8,6 +8,7 @@ public class DriveShiftToHighGearCommand extends CommandBase {
 	private DriveBaseSubsystem m_driveBaseSubsystem;
 
 	public DriveShiftToHighGearCommand(DriveBaseSubsystem driveBaseSubsystem) {
+		addRequirements(driveBaseSubsystem);
 		this.m_driveBaseSubsystem = driveBaseSubsystem;
 	}
 
@@ -18,6 +19,6 @@ public class DriveShiftToHighGearCommand extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 }

@@ -20,47 +20,44 @@ import io.github.oblarg.oblog.annotations.Log;
 
 // this is the class for containing all the subsystems and OI of the robot
 public class RobotContainer implements Loggable {
-	@Log(name = "Limelight Subsystem", tabName = "Turret")
+	@Log(tabName = "Turret")
 	public LimelightSubsystem m_LimelightSubsystem;
 
-	@Log(name = "Turret Subsystem", tabName = "Turret")
+	@Log(tabName = "Turret Subsystem", name = "Turret")
 	public TurretSubsystem m_turretSubsystem;
 
-	@Log(name = "Flywheel Subsystem", tabName = "Turret")
+	@Log(tabName = "Flywheel Subsystem", name = "Turret")
 	public FlywheelSubsystem m_flywheelSubsystem;
 
-	@Log(name = "Hood Subsystem", tabName = "Turret")
+	@Log(tabName = "Hood Subsystem", name = "Turret")
 	public HoodSubsystem m_hoodSubsystem;
 
-	@Log(name = "Lift Subsystem", tabName = "Lift")
+	@Log(tabName = "Lift Subsystem", name = "Lift")
 	public LiftSubsystem m_liftSubsystem;
 
-	@Log(name = "Drivebase Subsystem", tabName = "Drivebase Subsystem")
+	@Log(tabName = "Drivebase Subsystem", name = "Drivebase Subsystem")
 	public DriveBaseSubsystem m_driveBaseSubsystem;
 
-	@Log(name = "Intake Motors Subsystem", tabName = "Intake")
+	@Log(tabName = "Intake Motors Subsystem", name = "Intake")
 	public IntakeOnOffSubsystem m_intakeMotorOnOffSubsystem;
 
-	@Log(name = "Intake Subsystem", tabName = "Intake")
+	@Log(tabName = "Intake Lift Subsystem", name = "Intake")
 	public IntakeUpDownSubsystem m_intakeUpDownSubsystem;
 
-	@Log(name = "Control Panel Subsystem", tabName = "Control Panel")
+	@Log(tabName = "Control Panel Subsystem", name = "Control Panel")
 	public ControlPanelColorSubsystem m_controlPanelColorSubsystem;
 
-	@Log(name = "Indexer Motor Subsystem", tabName = "Indexer")
+	@Log(tabName = "Indexer Motor Subsystem", name = "Indexer")
 	public IndexerMotorSubsystem m_indexerMotorSubsystem;
 
-	@Log(name = "Indexer Sensor Subsystem", tabName = "Indexer")
+	@Log(tabName = "Indexer Sensor Subsystem", name = "Indexer")
 	public IndexerSensorSubsystem m_indexerSensorSubsystem;
 
-	@Log(name = "Climb Lift Subsystem", tabName = "Climb")
+	@Log(tabName = "Climb Lift Subsystem", name = "Climb")
 	public ClimbLiftSubsystem m_climbLiftSubsystem;
 
-	@Log(name = "Climb Motor Subsystem", tabName = "Climb")
+	@Log(tabName = "Climb Motor Subsystem", name = "Climb")
 	public ClimbMotorSubsystem m_climbMotorSubsystem;
-
-	@Log(tabName = "Driver View")
-	public Logging logger = new Logging();
 
 	// A chooser for autonomous commands
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -78,7 +75,6 @@ public class RobotContainer implements Loggable {
 
 			m_indexerMotorSubsystem = new IndexerMotorSubsystem(RobotMap.indexFrontMotor, RobotMap.indexMidMotor,
 					RobotMap.indexBackMotor, m_indexerSensorSubsystem);
-
 		}
 
 		if (RobotMap.LIFT_CONNECTED) {
@@ -110,5 +106,6 @@ public class RobotContainer implements Loggable {
 
 			m_hoodSubsystem = new HoodSubsystem(RobotMap.hoodServo1, RobotMap.hoodServo2);
 		}
+
 	}
 }

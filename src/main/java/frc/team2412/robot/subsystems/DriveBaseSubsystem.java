@@ -44,7 +44,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.team2412.robot.RobotState;
 import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
 
 public class DriveBaseSubsystem extends SubsystemBase implements Loggable {
@@ -69,11 +68,8 @@ public class DriveBaseSubsystem extends SubsystemBase implements Loggable {
 	@SuppressWarnings("unused")
 	private double m_rightMotorRevolutions, m_leftMotorRevolutions;
 
-	@Config.ToggleButton(name = "Toggle joystick drive", tabName = "Drivebase Subsystem")
-	private boolean oneJoystickDrive = false;
-
-	@Log.BooleanBox(name = "In 1 joystick", tabName = "Drivebase Subsystem", colorWhenFalse = "red", colorWhenTrue = "green")
-	private boolean inOneJoystickDrive = oneJoystickDrive;
+	@Log.BooleanBox(colorWhenFalse = "#0000ff", colorWhenTrue = "#ffff00", tabName = "Drivebase Subsystem")
+	public boolean doItWork = false;
 
 //	DifferentialDrive m_drive;
 
@@ -108,18 +104,12 @@ public class DriveBaseSubsystem extends SubsystemBase implements Loggable {
 	}
 
 	public void drive(Joystick rightJoystick, Joystick leftJoystick, Button button) {
-		if (oneJoystickDrive) {
-			m_rightMotor1.set(rightJoystick.getY() - Math.pow(rightJoystick.getTwist(), 3));
-			m_leftMotor1.set(rightJoystick.getY() + Math.pow(rightJoystick.getTwist(), 3));
+		if (button.get()) {
+			m_rightMotor1.set(rightJoystick.getY());
+			m_leftMotor1.set(rightJoystick.getY());
 		} else {
-
-			if (button.get()) {
-				m_rightMotor1.set(rightJoystick.getY());
-				m_leftMotor1.set(rightJoystick.getY());
-			} else {
-				m_rightMotor1.set(rightJoystick.getY());
-				m_leftMotor1.set(leftJoystick.getY());
-			}
+			m_rightMotor1.set(rightJoystick.getY());
+			m_leftMotor1.set(leftJoystick.getY());
 		}
 	}
 
@@ -171,6 +161,14 @@ public class DriveBaseSubsystem extends SubsystemBase implements Loggable {
 		return m_driveBaseCurrentDraw;
 	}
 
+	// OBLOG
+	// ---------------------------------------------------------------------------------
+
+	@Override
+	public String configureLogName() {
+		return "Drivebase Subsystem";
+	}
+
 	// Periodic
 	// ------------------------------------------------------------------------------
 
@@ -210,7 +208,7 @@ public class DriveBaseSubsystem extends SubsystemBase implements Loggable {
 
 	public void tankDriveVolts(double leftVolts, double rightVolts) {
 		m_leftMotors.setVoltage(leftVolts);
-		m_rightMotors.setVoltage(rightVolts);
+		m_rightMotors.setVoltage(-rightVolts);
 //		m_drive.feed();
 	}
 
